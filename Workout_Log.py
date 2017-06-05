@@ -51,20 +51,22 @@ class Cardio(Exercise):
         self.duration = duration
         self.distance = distance
 
-#def genNewExercise():
-#     'Prompt user to generate new exercise'
-#     input_Exercise = []
-#     print("Is the exercise Calisthenic, Weighted, or Cardio?")
-#     input_class = input(">")
-#     if input_class == "Calisthenic":
-#         input_name = str(input("What would you like to call this exercise?"))
-#         input_date = str(input("On what day was the exercise completed?"))
-#         input_note = str(input("Would you like to add any notes about the exercise?"))
-#         input_reps = str(input("How many reps are in each set?"))
-#         input_sets = str(input("How many total sets should be completed?"))
-#     else:
-#         print("That's unknown to me")
-#     input_Exercise = [input_class(input_name, input_date, input_note, input_reps, input_sets)]
+def genNewExercise():
+    'Prompt user to generate new exercise'
+    input_Exercise = []
+    print("Is the exercise Calisthenic, Weighted, or Cardio?")
+    input_class = input(">")
+    input_class = globals()[input_class]
+    if input_class == Calisthenic:
+        input_name = str(input("What would you like to call this exercise?"))
+        input_date = str(input("On what day was the exercise completed?"))
+        input_note = str(input("Would you like to add any notes about the exercise?"))
+        input_reps = str(input("How many reps are in each set?"))
+        input_sets = str(input("How many total sets should be completed?"))
+        input_Exercise = [input_class(input_name, input_date, input_note, input_reps, input_sets)]
+    else:
+        print("That's unknown to me")
+    return input_Exercise
    
 
 def Main():
@@ -73,8 +75,9 @@ def Main():
                       Weighted("Bench Press", "June 4","get big", "5", "135", "3"),
                       Cardio("Bicycling", "June 1", "Lance Armstrong has 1 ball", "131 min", "31 mi")]
     
-   # genNewExercise()
-   # KnownExercises += input_Exercise
+    input_Exercise = genNewExercise()
+    
+    KnownExercises += input_Exercise
 
     for exercise in KnownExercises:
         print("Name:" +exercise.name+ ", style:"+exercise.style)
