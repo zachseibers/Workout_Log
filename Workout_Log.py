@@ -1,11 +1,5 @@
-### Workout_Log Sandbox to learn this stuff
-### 1 - How to build new exercise class based on user input, will need to write a function
-### 2 - How do I store the known exercises to a text file or database
-### 3 - During exercise generation, can I check to see if it already exists.
-###     >If it does, prompt user to select existing and use it as a template.
-### 4 - How to store a log of exercises
-### 5 - Is my class structure correct, if recorded workouts are only particular insances, 
-###     then I may need to generate classes for each activity, ie running is a subclass of cardo
+"""workout_log sandbox to learn python stuff"""
+
 
 
 class Exercise(object):
@@ -13,16 +7,19 @@ class Exercise(object):
 
     def __init__(self, name, date, notes):
         self.name = name
-        self.style = self.__class__.__name__   # Makes the exercises subclass it's style, essentially eliminating the need for a variable 
+        self.style = self.__class__.__name__
+        # Makes the exercises subclass it's style, essentially eliminating the need for a variable
         self.date = date
         self.notes = notes
 
 
-    def exerciseSummary(self):
-        print("The %s is a %s exercise and was completed on %s!" %(self.name, self.style, self.date))
-   
-    def detailedsummary(self):
-            print(vars(self))         #prints all attributes of a class instance
+    def exercise_summary(self):
+        'Prints stuff about exercise'
+        print("The %s is a %s exercise and was completed on %s!"%(self.name, self.style, self.date))
+
+    def detailed_summary(self):
+        'prints all attributes of a class instance'
+        print(vars(self))
 
 
 class Weighted(Exercise):
@@ -37,7 +34,7 @@ class Weighted(Exercise):
 
 class Calisthenic(Exercise):
     "Calisthenic sublcass includes exercises that don't require weight and aren't cardio"
-    
+
     def __init__(self, name, date, notes, reps, sets):
         super().__init__(name, date, notes)
         self.reps = reps
@@ -45,15 +42,15 @@ class Calisthenic(Exercise):
 
 class Cardio(Exercise):
     "Cardio sublcass includes exercises that get the body moving"
-    
+
     def __init__(self, name, date, notes, duration, distance):
         super().__init__(name, date, notes)
         self.duration = duration
         self.distance = distance
 
-def genNewExercise():
+def gen_new_exercise():
     'Prompt user to generate new exercise'
-    input_Exercise = []
+    input_exercise = []
     print("Is the exercise Calisthenic, Weighted, or Cardio?")
     input_class = input(">")
     input_class = globals()[input_class]
@@ -63,27 +60,29 @@ def genNewExercise():
         input_note = str(input("Would you like to add any notes about the exercise?"))
         input_reps = str(input("How many reps are in each set?"))
         input_sets = str(input("How many total sets should be completed?"))
-        input_Exercise = [input_class(input_name, input_date, input_note, input_reps, input_sets)]
+        input_exercise = [input_class(input_name, input_date, input_note, input_reps, input_sets)]
     else:
         print("That's unknown to me")
-    return input_Exercise
-   
+    return input_exercise
 
-def Main():
-    
-    KnownExercises = [Calisthenic('Pushup', "June 5", "Got swole", "25", "5"),
-                      Weighted("Bench Press", "June 4","get big", "5", "135", "3"),
-                      Cardio("Bicycling", "June 1", "Lance Armstrong has 1 ball", "131 min", "31 mi")]
-    
-    input_Exercise = genNewExercise()
-    
-    KnownExercises += input_Exercise
 
-    for exercise in KnownExercises:
+def prompt_user_for_workout_details():
+    'docpenises'
+    known_exercises = [Calisthenic('Pushup', "June 5", "Got swole", "25", "5"),
+                       Weighted("Bench Press", "June 4", "get big", "5", "135", "3"),
+                       Cardio(
+                           "Bicycling", "June 1", "Lance Armstrong has 1 ball",
+                           "131 min", "31 mi")
+
+    input_exercise = gen_new_exercise()
+
+    known_exercises += input_exercise
+
+    for exercise in Known_exercises:
         print("Name:" +exercise.name+ ", style:"+exercise.style)
         Exercise.exerciseSummary(exercise)
         #print(vars(exercise))
         Exercise.detailedsummary(exercise)
 
 if __name__ == '__main__':
-    Main()
+    prompt_user_for_workout_details()
