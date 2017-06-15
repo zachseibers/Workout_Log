@@ -72,17 +72,17 @@ def prompt_user_for_workout_details():
                        Weighted("Bench Press", "June 4", "get big", "5", "135", "3"),
                        Cardio(
                            "Bicycling", "June 1", "Lance Armstrong has 1 ball",
-                           "131 min", "31 mi")
+                           "131 min", "31 mi")]
 
     input_exercise = gen_new_exercise()
 
     known_exercises += input_exercise
 
-    for exercise in Known_exercises:
+    for exercise in known_exercises:
         print("Name:" +exercise.name+ ", style:"+exercise.style)
-        Exercise.exerciseSummary(exercise)
+        Exercise.exercise_summary(exercise)
         #print(vars(exercise))
-        Exercise.detailedsummary(exercise)
+        Exercise.detailed_summary(exercise)
 
 if __name__ == '__main__':
     prompt_user_for_workout_details()
